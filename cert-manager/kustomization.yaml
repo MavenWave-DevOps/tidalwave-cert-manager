@@ -11,5 +11,11 @@ helmCharts:
   repo: https://charts.jetstack.io
   valuesFile: values.yaml
 
-# resources:
-# - https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
+patches:
+- target:
+    group: apiextensions.k8s.io
+    version: v1
+    kind: CustomResourceDefinition
+  patch: |
+    - op: remove
+      path: /metadata/labels/app.kubernetes.io~1instance
